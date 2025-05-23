@@ -1,3 +1,4 @@
+//component/ClimatrixLogo.js
 import React from 'react';
 
 const ClimatrixLogo = ({ width = 400, height = 200, className = '' }) => {

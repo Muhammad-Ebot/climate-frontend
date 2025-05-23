@@ -1,16 +1,11 @@
 import React from 'react';
 
-const Contact = () => {
+const Contect = () => {
   return (
     <div>
-      Contect Us here
+      Contact details comming soon....
     </div>
   );
 };
 
-export default Contact;
-
-export const metadata = {
-    title: "ContactUs-Climatrix",
-    description: "Contact us for detaial about Pakistan Weather Data",
-  };
+export default Contect;
