@@ -29,7 +29,7 @@ export default function Home() {
     },
     {
       id: 2,
-      title: "Heat wave alert issued for Sindh province",
+      title: "Heatwave alert issued for Sindh province",
       date: "May 17, 2025",
       source: "National Disaster Management Authority"
     },
@@ -119,7 +119,7 @@ export default function Home() {
           <h1 className="text-4xl font-bold text-blue-800 mb-4">Climatrix</h1>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
             A smart weather intelligence platform designed to detect and predict climate extremes
-            such as rainfall, heatwaves, floods, and droughts in real-time — with a special focus
+            such as rainfall, heatwaves, and droughts in real-time — with a special focus
             on Sindh, Pakistan.
           </p>
         </section>
@@ -127,7 +127,7 @@ export default function Home() {
         <section>
           <h2 className="text-2xl font-semibold text-blue-600 mb-2">What You Can Do Here</h2>
           <ul className="list-disc list-inside text-gray-700 space-y-1">
-            <li>View real-time predictions for heatwaves, rainfall, droughts, and floods</li>
+            <li>View real-time predictions for heatwaves, rainfall, and droughts</li>
             <li>Explore historical climate patterns in Sindh and other regions of Pakistan</li>
             <li>Access interactive charts, trends, and visualizations</li>
             <li>Gain insights through AI-powered forecasts and recommendations</li>
@@ -177,7 +177,7 @@ export default function Home() {
         >
           <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
             A smart weather intelligence platform designed to detect and predict climate extremes
-            such as rainfall, heatwaves, floods, and droughts in real-time — with a special focus
+            such as rainfall, heatwaves, and droughts in real-time — with a special focus
             on Sindh, Pakistan.
           </p>
         </motion.div>
@@ -231,9 +231,9 @@ export default function Home() {
                 <div className="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mb-4">
                   <Droplets size={32} className="text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-blue-700 mb-2">Heavy Rainfall</h3>
+                <h3 className="text-xl font-semibold text-blue-700 mb-2">Rainfall</h3>
                 <p className="text-gray-600 mb-4 flex-grow">
-                  Track intense rainfall patterns and flood risks across Pakistan with real-time monitoring.
+                  Track intense rainfall patterns across Pakistan with real-time monitoring.
                 </p>
                 <div className="flex items-center text-blue-600 font-medium mt-auto">
                   <span>View details</span>
@@ -277,9 +277,9 @@ export default function Home() {
                 <div className="bg-red-500 w-16 h-16 rounded-full flex items-center justify-center mb-4">
                   <Thermometer size={32} className="text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-red-700 mb-2">Heat Wave</h3>
+                <h3 className="text-xl font-semibold text-red-700 mb-2">Heatwave</h3>
                 <p className="text-gray-600 mb-4 flex-grow">
-                  Stay informed about extreme temperature events with predictive heat wave analysis.
+                  Stay informed about extreme temperature events with predictive heatwave analysis.
                 </p>
                 <div className="flex items-center text-red-600 font-medium mt-auto">
                   <span>View details</span>
@@ -356,7 +356,7 @@ export default function Home() {
         <ul className="space-y-3">
           {[
             {
-              text: "View real-time predictions for heatwaves, rainfall, droughts, and floods",
+              text: "View real-time predictions for heatwaves, rainfall, and droughts",
               icon: <Thermometer className="text-red-500" size={20} />
             },
             {

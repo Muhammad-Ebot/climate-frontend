@@ -177,11 +177,11 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start">
                 <MapPin size={16} className="mr-2 mt-0.5 text-yellow-300 flex-shrink-0" />
-                <span className="text-gray-300">123 Weather St, Climate City, Earth</span>
+                <span className="text-gray-300">xyz street Karachi,Sindh,Pakistan </span>
               </li>
               <li className="flex items-center">
                 <Phone size={16} className="mr-2 text-yellow-300 flex-shrink-0" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
+                <span className="text-gray-300">+92 3xx xxxxxxx</span>
               </li>
               <li className="flex items-center">
                 <Mail size={16} className="mr-2 text-yellow-300 flex-shrink-0" />
@@ -304,7 +304,7 @@ const Footer = () => {
         {/* Bottom Divider */}
         <div className="border-t border-cyan-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-xs text-gray-400 mb-3 md:mb-0">
-            Providing accurate weather forecasts and climate data since 2020
+            Providing accurate weather forecasts and climate data since 2025
           </p>
           
           <div className="flex items-center space-x-4">

@@ -71,36 +71,6 @@ const WeatherData = () => {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="bg-blue-900 text-blue-200 mt-20 py-12 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div>
-            <h3 className="font-bold text-white text-lg mb-4">Climatrix</h3>
-            <p className="text-blue-300">
-              Comprehensive weather and climate data analytics platform for Pakistan&apos;s changing environment.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-bold text-white text-lg mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="hover:text-white transition duration-200">Historical Data</a></li>
-              <li><a href="#" className="hover:text-white transition duration-200">Regional Forecasts</a></li>
-              <li><a href="#" className="hover:text-white transition duration-200">Climate Reports</a></li>
-              <li><a href="#" className="hover:text-white transition duration-200">API Access</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-bold text-white text-lg mb-4">Contact</h3>
-            <p className="text-blue-300">
-              Have questions about our weather data? Get in touch with our meteorology team for expert assistance.
-            </p>
-            <button className="mt-4 bg-blue-800 hover:bg-blue-700 px-4 py-2 rounded text-white transition duration-200">
-              <ul><Link href="/contact"><li>Contact Us</li></Link></ul>
-            </button>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

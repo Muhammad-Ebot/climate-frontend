@@ -25,7 +25,7 @@ export default function DroughtForecast() {
     
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/predict/drought-forecast/?lat=${location.lat}&lon=${location.lon}`
+        `https://climate-backend-7hx4.onrender.com/predict/drought-forecast/?lat=${location.lat}&lon=${location.lon}`
       );
       
       if (!response.ok) {

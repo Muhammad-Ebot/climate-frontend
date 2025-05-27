@@ -79,7 +79,7 @@ export default function TabsBar() {
     { name: 'Today Weather', href: '/todayweather', icon: <Sun /> },
     { name: 'Rainfall', href: '/Heavy-Rainfall', icon: <CloudRain /> },
     { name: 'Drought', href: '/Drought', icon: <Droplet /> },
-    { name: 'Heat wave', href: '/Heat-wave', icon: <Thermometer /> },
+    { name: 'Heatwave', href: '/Heat-wave', icon: <Thermometer /> },
     { name: 'Weather Forecast', href: '/weatherforecast', icon: <CalendarClock /> }
   ];
 

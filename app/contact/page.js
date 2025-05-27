@@ -9,3 +9,9 @@ const Contect = () => {
 };
 
 export default Contect;
+
+
+export const metadata = {
+  title: "Contact | Climatrix",
+  description: "",
+};

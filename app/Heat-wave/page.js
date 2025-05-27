@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Thermometer, MapPin, AlertTriangle, Info, ChevronDown, ChevronUp } from 'lucide-react';
+import { Thermometer, MapPin, AlertTriangle, Info, ChevronDown, ChevronUp, Wind, Sun, Droplets } from 'lucide-react';
 import LocationSearch from '@/component/LocationSearch';
 import TabsBar from '@/component/TabsBar';
 import UnitToggle from '@/component/UnitToggle';
@@ -27,11 +27,11 @@ export default function HeatWaveForecast() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/predict/heatwave/?lat=${location.lat}&lon=${location.lon}`
+        `https://climate-backend-7hx4.onrender.com/predict/heatwave/?lat=${location.lat}&lon=${location.lon}`
       );
 
       if (!response.ok) {
-        throw new Error('Failed to fetch heat wave data');
+        throw new Error('Failed to fetch heatwave data');
       }
 
       const data = await response.json();
@@ -41,7 +41,7 @@ export default function HeatWaveForecast() {
       );
     } catch (err) {
       setError(err.message);
-      console.error('Failed to fetch heat wave data:', err);
+      console.error('Failed to fetch heatwave data:', err);
     } finally {
       setLoading(false);
     }
@@ -74,6 +74,21 @@ export default function HeatWaveForecast() {
   const getTemperatureValue = (tempCelsius) => {
     if (tempCelsius === null || tempCelsius === undefined) return null;
     return unit === 'metric' ? tempCelsius : (tempCelsius * 9) / 5 + 32;
+  };
+
+  const formatWindSpeed = (windSpeed) => {
+    if (windSpeed === null || windSpeed === undefined) return 'N/A';
+    return unit === 'metric' ? `${windSpeed.toFixed(1)} m/s` : `${(windSpeed * 2.237).toFixed(1)} mph`;
+  };
+
+  const formatRadiation = (radiation) => {
+    if (radiation === null || radiation === undefined) return 'N/A';
+    return `${radiation.toFixed(1)} W/m²`;
+  };
+
+  const formatEvapotranspiration = (et) => {
+    if (et === null || et === undefined) return 'N/A';
+    return `${et.toFixed(2)} mm`;
   };
 
   const getChartData = () => {
@@ -132,7 +147,7 @@ export default function HeatWaveForecast() {
             Temperature: {payload[0].value.toFixed(1)}°{unit === 'metric' ? 'C' : 'F'}
           </p>
           <p className={`text-sm font-medium ${isHeatwave ? 'text-red-600' : 'text-green-600'}`}>
-            {isHeatwave ? 'Heat Wave Expected' : 'Normal Conditions'}
+            {isHeatwave ? 'Heatwave Expected' : 'Normal Conditions'}
           </p>
         </div>
       );
@@ -157,7 +172,7 @@ export default function HeatWaveForecast() {
           >
             <Thermometer className="text-red-500" size={32} />
             <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-black">
-              Heat Wave Forecast
+              Heatwave Forecast
             </h1>
           </motion.div>
         </div>
@@ -168,13 +183,7 @@ export default function HeatWaveForecast() {
               whileHover={{ boxShadow: "0 8px 30px rgba(0, 0, 0, 0.12)" }}
               className="bg-white p-4 rounded-xl shadow-md border border-gray-200"
             >
-              <LocationSearch location={location} setLocation={setLocation} />
-              {gridInfo && (
-                <div className="mt-2 flex items-start space-x-2">
-                  <Info size={16} className="text-orange-500 mt-1 flex-shrink-0" />
-                  <p className="text-sm text-gray-600">{gridInfo}</p>
-                </div>
-              )}
+              <LocationSearch location={location} setLocation={setLocation} />              
             </motion.div>
           </div>
           
@@ -199,7 +208,7 @@ export default function HeatWaveForecast() {
               transition={{ repeat: Infinity, duration: 1.5 }}
               className="h-16 w-16 border-4 border-t-red-500 border-r-red-300 border-b-red-200 border-l-red-400 rounded-full"
             />
-            <span className="mt-4 text-gray-600">Loading heat wave data...</span>
+            <span className="mt-4 text-gray-600">Loading heatwave data...</span>
           </motion.div>
         )}
 
@@ -238,7 +247,7 @@ export default function HeatWaveForecast() {
               <div>
                 <p className="text-blue-700 font-medium">Location not selected</p>
                 <p className="text-blue-600 mt-1">
-                  Please enter location coordinates above to view heat wave forecast information.
+                  Please enter location coordinates above to view heatwave forecast information.
                 </p>
               </div>
             </div>
@@ -260,12 +269,12 @@ export default function HeatWaveForecast() {
                 <div>
                   <h2 className={`text-2xl font-bold mb-2 ${severityLevelText[getSeverityLevel()]}`}>
                     {heatWaveDays > 0 
-                      ? `Heat Wave Alert: ${heatWaveDays} day${heatWaveDays > 1 ? 's' : ''} of extreme heat expected`
-                      : 'No Heat Waves Expected'}
+                      ? `Heatwave Alert: ${heatWaveDays} day${heatWaveDays > 1 ? 's' : ''} of extreme heat expected`
+                      : 'No Heatwaves Expected'}
                   </h2>
                   <p className="text-gray-700">
                     {heatWaveDays > 0 
-                      ? `Our forecast shows ${heatWaveDays} out of ${heatData.length} days with potential heat wave conditions.` 
+                      ? `Our forecast shows ${heatWaveDays} out of ${heatData.length} days with potential heatwave conditions.` 
                       : 'Our forecast shows normal temperature patterns for the upcoming period.'}
                   </p>
                 </div>
@@ -363,7 +372,7 @@ export default function HeatWaveForecast() {
                       </div>
                       <div className="flex items-center">
                         <div className="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
-                        <span className="text-sm text-gray-600">Heat Wave Days</span>
+                        <span className="text-sm text-gray-600">Heatwave Days</span>
                       </div>
                     </div>
                   </motion.div>
@@ -382,10 +391,19 @@ export default function HeatWaveForecast() {
                               Date
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Mean Temperature
+                              Temperature
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Heat Wave Prediction
+                              Wind Speed
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Solar Radiation
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Evapotranspiration
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                              Heatwave Status
                             </th>
                           </tr>
                         </thead>
@@ -415,15 +433,33 @@ export default function HeatWaveForecast() {
                                   {formatTemperature(row.temperature_2m_mean)}
                                 </div>
                               </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                <div className="flex items-center">
+                                  <Wind size={16} className="mr-2 text-blue-500" />
+                                  {formatWindSpeed(row.wind_speed_10m_max)}
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                <div className="flex items-center">
+                                  <Sun size={16} className="mr-2 text-yellow-500" />
+                                  {formatRadiation(row.shortwave_radiation_sum)}
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                <div className="flex items-center">
+                                  <Droplets size={16} className="mr-2 text-cyan-500" />
+                                  {formatEvapotranspiration(row.et0_fao_evapotranspiration)}
+                                </div>
+                              </td>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 {row.heatwave_prediction === 1 || row.heatwave_prediction === '1' ? (
                                   <span className="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800 inline-flex items-center">
                                     <AlertTriangle size={14} className="mr-1" />  
-                                    Heat Wave Expected
+                                    Heatwave Expected
                                   </span>
                                 ) : (
                                   <span className="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                                    No Heat Wave
+                                    No Heatwave
                                   </span>
                                 )}
                               </td>

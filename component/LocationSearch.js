@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Navigation, Compass, Loader } from 'lucide-react';
+import { MapPin, Navigation, Compass, Loader, Search } from 'lucide-react';
 
 // Lazy-load the map to avoid SSR issues
 const Map = dynamic(() => import('./PakistanMap'), { 
@@ -21,13 +21,85 @@ const Map = dynamic(() => import('./PakistanMap'), {
 export default function LocationSearch({ location, setLocation }) {
   const [lat, setLat] = useState('');
   const [lon, setLon] = useState('');
-  const [province, setProvince] = useState('');
+  const [placeName, setPlaceName] = useState('');
   const [activeMethod, setActiveMethod] = useState('coordinates'); // 'coordinates' | 'map' | 'gps'
   const [mapCoords, setMapCoords] = useState(null);
   const [isGettingLocation, setIsGettingLocation] = useState(false);
+  const [isSearchingPlace, setIsSearchingPlace] = useState(false);
   const [locationError, setLocationError] = useState(null);
+  const [inputMode, setInputMode] = useState('coordinates'); // 'coordinates' | 'place'
 
-  // Handle GPS location
+  // Handle place name search
+  const searchPlaceByName = async (name) => {
+    if (!name.trim()) return;
+    
+    setIsSearchingPlace(true);
+    setLocationError(null);
+    
+    try {
+      // Using OpenStreetMap Nominatim API for geocoding
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(name)}&limit=1&countrycodes=pk`
+      );
+      const data = await response.json();
+      
+      if (data && data.length > 0) {
+        const result = data[0];
+        setLat(parseFloat(result.lat).toFixed(4));
+        setLon(parseFloat(result.lon).toFixed(4));
+        setLocationError(null);
+      } else {
+        setLocationError('Place not found. Please try a different name or use coordinates.');
+      }
+    } catch (error) {
+      setLocationError('Error searching for place. Please try again.');
+    } finally {
+      setIsSearchingPlace(false);
+    }
+  };
+
+  // Handle place name input change with debounced search
+  const handlePlaceNameChange = (e) => {
+    const value = e.target.value;
+    setPlaceName(value);
+    
+    // Clear coordinates when typing place name
+    if (value.trim()) {
+      setLat('');
+      setLon('');
+    }
+  };
+
+  // Handle coordinate input changes
+  const handleLatChange = (e) => {
+    setLat(e.target.value);
+    // Clear place name when entering coordinates
+    if (e.target.value.trim()) {
+      setPlaceName('');
+    }
+  };
+
+  const handleLonChange = (e) => {
+    setLon(e.target.value);
+    // Clear place name when entering coordinates
+    if (e.target.value.trim()) {
+      setPlaceName('');
+    }
+  };
+
+  // Handle place name search on Enter or blur
+  const handlePlaceNameKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      searchPlaceByName(placeName);
+    }
+  };
+
+  const handlePlaceNameBlur = () => {
+    if (placeName.trim()) {
+      searchPlaceByName(placeName);
+    }
+  };
   const getDeviceLocation = () => {
     if (!navigator.geolocation) {
       setLocationError("Geolocation is not supported by your browser");
@@ -64,16 +136,22 @@ export default function LocationSearch({ location, setLocation }) {
   const handleSearch = (e) => {
     e.preventDefault();
     
+    // If place name is entered but coordinates are not set, search first
+    if (placeName.trim() && (!lat || !lon)) {
+      searchPlaceByName(placeName);
+      return;
+    }
+    
     if (!lat || !lon) {
-      setLocationError('Please provide location data');
+      setLocationError('Please provide either coordinates or a place name');
       return;
     }
 
     setLocation({
       lat: parseFloat(lat),
       lon: parseFloat(lon),
-      province: province || null,
-      name: province ? `${province} (${lat}, ${lon})` : `Location (${lat}, ${lon})`
+      placeName: placeName || null,
+      name: placeName ? `${placeName} (${lat}, ${lon})` : `Location (${lat}, ${lon})`
     });
     
     // Feedback animation can be added here
@@ -152,60 +230,75 @@ export default function LocationSearch({ location, setLocation }) {
           )}
         </AnimatePresence>
 
-        {/* Coordinate Input */}
-        <div className="space-y-3">
-          <div className="grid grid-cols-2 gap-3">
-            <div className="relative">
-              <label className="text-xs text-gray-500 mb-1 block">Latitude</label>
-              <input
-                type="number"
-                step="0.0001"
-                value={lat}
-                onChange={(e) => setLat(e.target.value)}
-                placeholder="longitude"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
-                required
-              />
-            </div>
-            <div className="relative">
-              <label className="text-xs text-gray-500 mb-1 block">Longitude</label>
-              <input
-                type="number"
-                step="0.0001"
-                value={lon}
-                onChange={(e) => setLon(e.target.value)}
-                placeholder="latitude"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
-                required
-              />
-            </div>
-          </div>
-          
-          {/* Province Input */}
-          <div className="relative">
-            <label className="text-xs text-gray-500 mb-1 block">Province (optional)</label>
-            <input
-              type="text"
-              value={province}
-              onChange={(e) => setProvince(e.target.value)}
-              placeholder="Select or enter province name"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
-              list="provinces"
-            />
-            <datalist id="provinces">
-              <option value="Sindh" />
-              <option value="Punjab" />
-              <option value="Balochistan" />
-              <option value="KPK" />
-              <option value="Azad Kashmir" />
-              <option value="Gilgit Baltistan" />
-              <option value="Federal Capital Territory" />
-              <option value="FATA" />
-            </datalist>
-          </div>
-        </div>
+        {/* Coordinate Input - Only show when coordinates tab is active */}
+        <AnimatePresence mode="wait">
+          {activeMethod === 'coordinates' && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-3"
+            >
+              {/* Place Name Search Input */}
+              <div className="relative">
+                <label className="text-xs text-gray-500 mb-1 block">
+                  Place Name <span className="text-blue-600">(Search by name OR enter coordinates below)</span>
+                </label>
+                <div className="relative">
+                  <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  {isSearchingPlace && (
+                    <Loader className="w-4 h-4 text-blue-500 animate-spin absolute right-3 top-1/2 transform -translate-y-1/2" />
+                  )}
+                  <input
+                    type="text"
+                    value={placeName}
+                    onChange={handlePlaceNameChange}
+                    onKeyPress={handlePlaceNameKeyPress}
+                    onBlur={handlePlaceNameBlur}
+                    placeholder="e.g., Karachi, Lahore, Islamabad..."
+                    className="w-full border border-gray-300 rounded-md pl-10 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
+                    disabled={isSearchingPlace}
+                  />
+                </div>
+                <p className="text-xs text-gray-400 mt-1">Press Enter or click away to search</p>
+              </div>
 
-        {/* Map Container */}
+              <div className="flex items-center">
+                <div className="flex-1 border-t border-gray-200"></div>
+                <span className="px-3 text-xs text-gray-500 bg-white">OR</span>
+                <div className="flex-1 border-t border-gray-200"></div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="relative">
+                  <label className="text-xs text-gray-500 mb-1 block">Latitude</label>
+                  <input
+                    type="number"
+                    step="0.0001"
+                    value={lat}
+                    onChange={handleLatChange}
+                    placeholder="Enter latitude"
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
+                  />
+                </div>
+                <div className="relative">
+                  <label className="text-xs text-gray-500 mb-1 block">Longitude</label>
+                  <input
+                    type="number"
+                    step="0.0001"
+                    value={lon}
+                    onChange={handleLonChange}
+                    placeholder="Enter longitude"
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Map Container - Only show when map tab is active */}
         <AnimatePresence mode="wait">
           {activeMethod === 'map' && (
             <motion.div 
@@ -213,13 +306,13 @@ export default function LocationSearch({ location, setLocation }) {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="mt-2"
+              className="space-y-3"
             >
               <div className="h-64 w-full border rounded-lg overflow-hidden bg-blue-50">
                 <Map onMapClick={handleMapClick} selectedCoords={mapCoords} />
               </div>
               {mapCoords && (
-                <div className="mt-2 text-sm text-gray-600 flex items-center justify-center bg-blue-50 p-2 rounded-md">
+                <div className="text-sm text-gray-600 flex items-center justify-center bg-blue-50 p-2 rounded-md">
                   <MapPin className="w-4 h-4 text-blue-600 mr-1" />
                   Selected: {mapCoords.lat.toFixed(4)}, {mapCoords.lng.toFixed(4)}
                 </div>
@@ -228,7 +321,7 @@ export default function LocationSearch({ location, setLocation }) {
           )}
         </AnimatePresence>
 
-        {/* GPS Status */}
+        {/* GPS Status - Only show when GPS is active */}
         <AnimatePresence mode="wait">
           {activeMethod === 'gps' && isGettingLocation && (
             <motion.div 

@@ -123,7 +123,7 @@ export default function WeatherHistory() {
               <UnitToggle unit={unit} setUnit={setUnit} />
             </div>
           </div>
-          
+          {/*
           {location && dateRange.start && dateRange.end && (
             <div className="mb-2">
               <h2 className="text-xl font-semibold">
@@ -133,7 +133,7 @@ export default function WeatherHistory() {
                 {dateRange.start.toLocaleDateString()} to {dateRange.end.toLocaleDateString()}
               </p>
             </div>
-          )}
+          )}*/}
         </div>
         
         {/* Loading State */}
