@@ -377,19 +377,19 @@ export default function HeavyRainfall() {
                     <table className="min-w-full divide-y divide-gray-200">
                       <thead className="bg-gray-50">
                         <tr>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Humidity (%)</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cloud Cover (%)</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Wind Gusts (km/h)</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Soil Moisture (m³/m³)</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rain Category</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Confidence</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Humidity (%)</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cloud Cover (%)</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Wind Gusts (km/h)</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Soil Moisture (m³/m³)</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rain Category</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Confidence</th>
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
                         {rainData.map((row, index) => (
                           <tr key={index} className="hover:bg-gray-50">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                               {new Date(row.date).toLocaleString([], {
                                 month: 'short',
                                 day: 'numeric',
@@ -397,13 +397,13 @@ export default function HeavyRainfall() {
                                 minute: '2-digit'
                               })}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                               <div className="flex items-center">
                                 <Droplets className="h-4 w-4 mr-1 text-blue-500" />
                                 {formatValue(row.relative_humidity_2m)}
                               </div>
                             </td>
-                            <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                               <div className="flex items-center">
                                 <div className="w-16 bg-gray-200 rounded-full h-2.5 mr-2">
                                   <div 
@@ -414,16 +414,16 @@ export default function HeavyRainfall() {
                                 {/*formatValue(row.cloud_cover_mid)*/}
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                               <div className="flex items-center">
                                 <Wind className="h-4 w-4 mr-1 text-green-500" />
                                 {formatValue(row.wind_gusts_10m)}
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                               {formatValue(row.soil_moisture_0_to_7cm)}
                             </td>
-                            <td className="px-5 py-4 whitespace-nowrap text-sm">
+                            <td className="px-4 py-4 whitespace-nowrap text-sm">
                               <span 
                                 className="px-3 py-1 rounded-full text-xs font-medium text-white"
                                 style={{ backgroundColor: getRainCategoryColor(row.rain_category) }}
@@ -431,7 +431,7 @@ export default function HeavyRainfall() {
                                 {row.rain_category_label || 'No rain'}
                               </span>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                               <div className="flex items-center">
                                 {row.prediction_confidence ? `${Math.round(row.prediction_confidence * 100)}%` : 'N/A'}
                               </div>
