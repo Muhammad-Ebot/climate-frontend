@@ -403,7 +403,7 @@ export default function HeavyRainfall() {
                                 {formatValue(row.relative_humidity_2m)}
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-500">
                               <div className="flex items-center">
                                 <div className="w-16 bg-gray-200 rounded-full h-2.5 mr-2">
                                   <div 
@@ -423,7 +423,7 @@ export default function HeavyRainfall() {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               {formatValue(row.soil_moisture_0_to_7cm)}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm">
+                            <td className="px-5 py-4 whitespace-nowrap text-sm">
                               <span 
                                 className="px-3 py-1 rounded-full text-xs font-medium text-white"
                                 style={{ backgroundColor: getRainCategoryColor(row.rain_category) }}
