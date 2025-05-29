@@ -8,8 +8,7 @@ import {
   FaFacebookF, 
   FaTwitter, 
   FaInstagram, 
-  FaLinkedinIn, 
-  FaYoutube 
+  FaLinkedinIn
 } from 'react-icons/fa';
 import { 
   Mail, 
@@ -135,7 +134,7 @@ const Footer = () => {
               <motion.li whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
                 <Link href="/Heavy-Rainfall" className="hover:text-yellow-300 transition duration-300 flex items-center">
                   <span className="inline-block w-1.5 h-1.5 bg-yellow-300 rounded-full mr-2"></span>
-                  Heavy Rainfall
+                  Rainfall
                 </Link>
               </motion.li>
               <motion.li whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
@@ -147,13 +146,13 @@ const Footer = () => {
               <motion.li whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
                 <Link href="/Heat-wave" className="hover:text-yellow-300 transition duration-300 flex items-center">
                   <span className="inline-block w-1.5 h-1.5 bg-yellow-300 rounded-full mr-2"></span>
-                  Heat Wave
+                  Heatwave
                 </Link>
               </motion.li>
               <motion.li whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
                 <Link href="/WeatherPictures" className="hover:text-yellow-300 transition duration-300 flex items-center">
                   <span className="inline-block w-1.5 h-1.5 bg-yellow-300 rounded-full mr-2"></span>
-                  Weather Pictures
+                  Research Work
                 </Link>
               </motion.li>
               <motion.li whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
@@ -163,10 +162,6 @@ const Footer = () => {
                 </Link>
               </motion.li>
               <motion.li whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
-                <Link href="/contact" className="hover:text-yellow-300 transition duration-300 flex items-center">
-                  <span className="inline-block w-1.5 h-1.5 bg-yellow-300 rounded-full mr-2"></span>
-                  Contact
-                </Link>
               </motion.li>
             </ul>
           </motion.div>
@@ -177,15 +172,17 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start">
                 <MapPin size={16} className="mr-2 mt-0.5 text-yellow-300 flex-shrink-0" />
-                <span className="text-gray-300">xyz street Karachi,Sindh,Pakistan </span>
+                <span className="text-gray-300">
+                  ST-13 Abul Hasan Isphahani Rd, Block 7 Gulshan-e-Iqbal, Karachi, 75300
+                  </span>
               </li>
               <li className="flex items-center">
                 <Phone size={16} className="mr-2 text-yellow-300 flex-shrink-0" />
-                <span className="text-gray-300">+92 3xx xxxxxxx</span>
+                <span className="text-gray-300">+92 336 1505100</span>
               </li>
               <li className="flex items-center">
                 <Mail size={16} className="mr-2 text-yellow-300 flex-shrink-0" />
-                <span className="text-gray-300">info@climatrix.com</span>
+                <span className="text-gray-300">climatrix07@gmail.com</span>
               </li>
             </ul>
             
@@ -217,26 +214,6 @@ const Footer = () => {
           <motion.div variants={itemVariants} className="space-y-4">
             <h3 className="text-lg font-semibold border-b border-cyan-700 pb-2 mb-3">Stay Connected</h3>
             
-            {/* Newsletter Form */}
-            <div>
-              <p className="text-sm text-gray-300 mb-2">Subscribe to our newsletter</p>
-              <form className="flex">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="rounded-l-md px-3 py-2 w-full text-sm bg-cyan-700 border-cyan-600 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-300"
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  type="submit"
-                  className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-cyan-900 font-medium px-3 py-2 rounded-r-md text-sm"
-                >
-                  Join
-                </motion.button>
-              </form>
-            </div>
-            
             {/* Social Media Links */}
             <div>
               <p className="text-sm mb-2">Follow us</p>
@@ -266,7 +243,7 @@ const Footer = () => {
                 <motion.a
                   whileHover="hover"
                   variants={iconVariants}
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/climatrix07/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
@@ -284,17 +261,6 @@ const Footer = () => {
                   className="bg-cyan-700 hover:bg-cyan-600 p-2 rounded-full text-white transition duration-300"
                 >
                   <FaLinkedinIn />
-                </motion.a>
-                <motion.a
-                  whileHover="hover"
-                  variants={iconVariants}
-                  href="https://youtube.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="YouTube"
-                  className="bg-cyan-700 hover:bg-cyan-600 p-2 rounded-full text-white transition duration-300"
-                >
-                  <FaYoutube />
                 </motion.a>
               </div>
             </div>

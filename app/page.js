@@ -18,28 +18,6 @@ import {
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
-  
-  // Mock Pakistan weather news - in a real app, this would come from an API
-  const weatherNews = [
-    {
-      id: 1,
-      title: "Monsoon rains expected across southern regions this week",
-      date: "May 18, 2025",
-      source: "Pakistan Meteorological Department"
-    },
-    {
-      id: 2,
-      title: "Heatwave alert issued for Sindh province",
-      date: "May 17, 2025",
-      source: "National Disaster Management Authority"
-    },
-    {
-      id: 3,
-      title: "Water levels rising in major reservoirs following recent rainfall",
-      date: "May 16, 2025",
-      source: "Water and Power Development Authority"
-    }
-  ];
 
   useEffect(() => {
     setMounted(true);
@@ -119,8 +97,7 @@ export default function Home() {
           <h1 className="text-4xl font-bold text-blue-800 mb-4">Climatrix</h1>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
             A smart weather intelligence platform designed to detect and predict climate extremes
-            such as rainfall, heatwaves, and droughts in real-time — with a special focus
-            on Sindh, Pakistan.
+            such as rainfall, heatwaves, and droughts in real-time — with a focus on Pakistan.
           </p>
         </section>
         
@@ -288,52 +265,6 @@ export default function Home() {
               </div>
             </Link>
           </motion.div>
-        </div>
-      </motion.section>
-      
-      {/* Pakistan Weather News */}
-      <motion.section
-        className="bg-white rounded-xl shadow-md overflow-hidden"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.8 }}
-      >
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 py-4 px-6">
-          <div className="flex items-center">
-            <Newspaper className="text-white mr-3" size={24} />
-            <h2 className="text-xl font-semibold text-white m-0">Pakistan Weather News</h2>
-          </div>
-        </div>
-        
-        <div className="p-6">
-          <ul className="space-y-4">
-            {weatherNews.map((news, index) => (
-              <motion.li 
-                key={news.id}
-                className="border-b border-gray-100 last:border-b-0 pb-4 last:pb-0"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.8 + index * 0.15, duration: 0.5 }}
-              >
-                <h3 className="text-lg font-medium text-gray-800 mb-1">{news.title}</h3>
-                <div className="flex items-center text-sm text-gray-500">
-                  <span className="mr-3">{news.date}</span>
-                  <span className="px-2 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-medium">
-                    {news.source}
-                  </span>
-                </div>
-              </motion.li>
-            ))}
-          </ul>
-          
-          <motion.button
-            className="mt-6 w-full py-2 bg-blue-50 text-blue-600 rounded-md font-medium hover:bg-blue-100 transition-colors flex items-center justify-center"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span>View All Weather News</span>
-            <ArrowRight size={16} className="ml-2" />
-          </motion.button>
         </div>
       </motion.section>
                 

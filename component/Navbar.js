@@ -12,7 +12,7 @@ const navItems = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/weatherdata', label: 'Weather' },
-  { href: '/WeatherPictures', label: 'Weather Pictures' }
+  { href: '/DebugScreen', label: 'Research Work' }
 ];
 
 const Navbar = () => {

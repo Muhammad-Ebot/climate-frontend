@@ -375,7 +375,9 @@ export default function DroughtForecast() {
                   Understanding Drought
                 </h2>
                 
-                <div className={`transition-all duration-500 ease-in-out overflow-hidden ${isInfoExpanded ? 'max-h-screen' : 'max-h-64'}`}>
+                <div className={`transition-all duration-500 ease-in-out ${isInfoExpanded ? '' : 'overflow-hidden'}`} style={{
+                  maxHeight: isInfoExpanded ? 'none' : '16rem'
+                }}>
                   <p className="text-gray-700 text-base mb-3">
                     A <strong>drought</strong> is a prolonged period of abnormally low rainfall that leads to a shortage of water. It can have severe impacts on agriculture, water supply, and daily life.
                   </p>
@@ -449,28 +451,12 @@ export default function DroughtForecast() {
                   onClick={() => setIsInfoExpanded(!isInfoExpanded)}
                 >
                   {isInfoExpanded ? 'Show Less' : 'Learn More'}
-                  <ArrowRight className={`h-4 w-4 ml-1 transition-transform duration-200 ${isInfoExpanded ? 'rotate-90' : ''}`} />
+                  {isInfoExpanded ? (
+                    <ChevronUp className="h-4 w-4 ml-1" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 ml-1" />
+                  )}
                 </button>
-              </div>
-            </div>
-            
-            <div className="mt-6 bg-white border border-gray-200 rounded-xl shadow-sm p-5 transition-all duration-300 hover:shadow-md">
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">Current Weather Alerts</h3>
-              {location ? (
-                <div className="animate-pulse mb-3">
-                  <p className="text-sm text-gray-500">Checking for alerts near your location...</p>
-                </div>
-              ) : (
-                <p className="text-sm text-gray-500">Enter a location to view weather alerts</p>
-              )}
-              <div className="mt-4">
-                <a 
-                  href="#" 
-                  className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center"
-                >
-                  View National Drought Monitor
-                  <ArrowRight className="h-4 w-4 ml-1" />
-                </a>
               </div>
             </div>
           </div>
