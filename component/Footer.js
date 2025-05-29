@@ -221,7 +221,7 @@ const Footer = () => {
                 <motion.a
                   whileHover="hover"
                   variants={iconVariants}
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/share/19MQ2XVZm2/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook"

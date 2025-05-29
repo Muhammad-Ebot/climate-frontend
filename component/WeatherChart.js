@@ -230,8 +230,8 @@ export default function WeatherChart({ data, unit }) {
                 tickLine={{ stroke: '#d1d5db' }}
                 axisLine={{ stroke: '#e5e7eb' }}
               />
-              <YAxis 
-                domain={[tempMin - tempBuffer, tempMax + tempBuffer]}
+              <YAxis stroke="#6b7280" fontSize={12}
+                //domain={[tempMin - tempBuffer, tempMax + tempBuffer]}
                 tick={{ fill: '#6b7280' }}
                 tickLine={{ stroke: '#d1d5db' }}
                 axisLine={{ stroke: '#e5e7eb' }}

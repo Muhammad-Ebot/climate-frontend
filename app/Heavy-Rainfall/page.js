@@ -411,7 +411,7 @@ export default function HeavyRainfall() {
                                     style={{ width: `${row.cloud_cover_mid}%` }}
                                   ></div>
                                 </div>
-                                {formatValue(row.cloud_cover_mid)}
+                                {/*formatValue(row.cloud_cover_mid)*/}
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -433,6 +433,11 @@ export default function HeavyRainfall() {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               <div className="flex items-center">
+                                {row.prediction_confidence ? `${Math.round(row.prediction_confidence * 100)}%` : 'N/A'}
+                              </div>
+                            </td>
+                            {/*<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              <div className="flex items-center">
                                 <div className="w-16 bg-gray-200 rounded-full h-2.5 mr-2">
                                   <div 
                                     className="h-2.5 rounded-full bg-green-500"
@@ -441,7 +446,7 @@ export default function HeavyRainfall() {
                                 </div>
                                 {row.prediction_confidence ? `${Math.round(row.prediction_confidence * 100)}%` : 'N/A'}
                               </div>
-                            </td>
+                            </td>*/}
                           </tr>
                         ))}
                       </tbody>
