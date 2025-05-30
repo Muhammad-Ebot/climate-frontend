@@ -747,7 +747,7 @@ export default function WeatherForecast() {
                             {item.relative_humidity_2m ? `${item.relative_humidity_2m}%` : 'N/A'}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {item.cloud_cover_mid ? `${item.cloud_cover_mid}%` : 'N/A'}
+                            {item.cloud_cover_mid ? `${item.cloud_cover_mid}%` : 0}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm">
                             <span className="px-2 py-1 rounded-full text-xs font-medium text-white" style={{
